@@ -31,10 +31,18 @@
 
 ---
 
-## 3. Diretrizes de Design & UI/UX (Estilo Netflix)
-* **Identidade Visual**:
-  * Paleta Dark Mode cinematográfica: fundo preto/cinza muito escuro (`#141414` / `#0f0f0f`), detalhes translúcidos com materiais Fluent Design do Windows 11 (Mica / Acrylic).
-  * Cor de destaque/acento elegante (vermelho cinematográfico ou personalizável).
+## 3. Diretrizes de Design & UI/UX (Identidade Cerberus Cyber Blue)
+* **Conceito & Logotipo Oficial**:
+  * **CineCerb**: União de *Cinema/Streaming* com o *Cão Cérbero de três cabeças* (o guardião do entretenimento).
+  * **Simbologia das 3 Cabeças**: Representam os 3 pilares do IPTV (📺 TV Ao Vivo na esquerda, 🎬 Filmes VOD no centro e 🎞️ Séries na direita).
+  * **Emblema Central**: Claquete de cinema com o botão Play (▶), anel circular no formato da letra "C" e ondas de transmissão (*broadcasting*).
+* **Paleta de Cores Oficial**:
+  * **Fundo**: Dark Mode imersivo e profundo (`#0a0a0d` e `#121216`) com materiais Fluent Design do Windows 11 (*Mica* e *Acrylic*).
+  * **Acento Primário**: **Cerberus Cyber Blue** (`#00D2FF` com gradiente para `#0072FF` e glow ciano elétrico) aplicado ao logo, botões primários ("Assistir Agora", "Entrar e Sincronizar"), barras de progresso, timeline do player e bordas ativas.
+  * **Bicolor Funcional**: O indicador de transmissão de TV ao vivo utiliza a tag e ponto pulsante **🔴 AO VIVO** vermelho clássico para rápida identificação semafórica pelo usuário.
+* **Tela de Login / Conexão**:
+  * Backdrop cinematográfico sci-fi em alta definição com efeito parallax reativo ao mouse.
+  * Cartão central fixo e estável em **Vidro Fosco Lapidado (*Frosted Glass / Fluent Acrylic*)** com bisel de luz superior (`inset 0 1px 1px rgba(255,255,255,0.32)`) e campos reentrantes (*sunken glass*).
 * **Componentes Principais**:
   * **Hero Banner Dinâmico**: Destaque de topo com pôster panorâmico, sinopse, classificação indicativa e botões de ação ("Assistir Agora", "Mais Informações").
   * **Carrosséis Horizontais de Conteúdo**: Linhas de filmes/séries/canais organizados por gênero ("Continuar Assistindo", "Em Alta", etc.) com efeito suave de *hover zoom* (+10% de escala e elevação com sombra ao passar o mouse).
