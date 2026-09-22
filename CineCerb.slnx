@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CineCerb.App/CineCerb.App.csproj" />
+    <Project Path="src/CineCerb.Core/CineCerb.Core.csproj" />
+    <Project Path="src/CineCerb.Infrastructure/CineCerb.Infrastructure.csproj" />
+  </Folder>
+</Solution>

@@ -2,8 +2,8 @@
 
 ## 1. Filosofia de Trabalho em Par (Pair Programming)
 * **Papéis Definidos**:
-  * **O Desenvolvedor (Usuário)**: É o líder técnico, tomador de decisões e quem comanda a evolução do projeto.
-  * **A IA (Assistente Técnico)**: Atua como pair programmer sênior especializado em C#, .NET 10 e WinUI 3. A IA deve:
+  * **O Desenvolvedor (Usuário)**: É o líder técnico, tomador de decisões e quem comanda a evolução do projeto passo a passo.
+  * **A IA (Assistente Técnico)**: Atua como pair programmer sênior especializado em C#, .NET 10 e Avalonia UI. A IA deve:
     * Nunca tomar decisões de arquitetura ou alterar fluxos críticos unilateralmente sem antes propor e receber o aval do Desenvolvedor.
     * Explicar o raciocínio, vantagens e desvantagens de cada implementação sugerida.
     * Dividir o trabalho em etapas pequenas, testáveis e claras, evitando "muralhas de código" sem contexto.
@@ -15,16 +15,16 @@
 ---
 
 ## 2. Stack Tecnológica Oficial
-* **Linguagem & Plataforma**: C# (.NET 10 LTS, SDK `10.0.401+`, TFM `net10.0-windows10.0.19041.0` ou superior).
-* **Framework de Interface**: WinUI 3 (Windows App SDK) operando em modo **Unpackaged** (`<WindowsPackageType>None</WindowsPackageType>` no `.csproj` para gerar `.exe` tradicional para distribuição direta / Inno Setup).
+* **Linguagem & Plataforma**: C# (.NET 10, SDK `10.0.401+`, TFM `net10.0` com arquitetura limpa e desacoplada).
+* **Framework de Interface**: **Avalonia UI (v11.x)** com foco de desenvolvimento inicial para **Windows**, mantendo a base estruturada e organizada para expansão futura para **Linux** e **Android**.
 * **Padrão de Arquitetura**: MVVM com `CommunityToolkit.Mvvm` (usando *Source Generators*: `[ObservableProperty]`, `[RelayCommand]`) e Injeção de Dependência via `Microsoft.Extensions.DependencyInjection`.
-* **Motor de Reprodução de Vídeo**: `LibVLCSharp.WinUI` + binários nativos `VideoLAN.LibVLC.Windows` (suporte universal a HLS, MPEG-TS, H.264, HEVC/H.265, áudio AC3/EAC3 sem dependência de codecs do Windows).
+* **Motor de Reprodução de Vídeo**: `LibVLCSharp.Avalonia` + binários nativos `VideoLAN.LibVLC.Windows` (suporte universal a HLS, MPEG-TS, H.264, HEVC/H.265, áudio AC3/EAC3 sem dependência de codecs do sistema operacional).
 * **Fontes de Dados**:
   * **Xtream Codes API**: Cliente HTTP assíncrono para obtenção estruturada de categorias, canais ao vivo, VOD (filmes) e séries.
   * **Listas M3U / M3U8**: Parser rápido de arquivos locais ou remotos com suporte a atributos de metadados (`tvg-id`, `tvg-name`, `tvg-logo`, `group-title`).
   * **EPG (Guia de Programação)**: Parser XMLTV assíncrono em fluxo (*streaming parser* para não estourar memória com arquivos XML gigantes).
 * **Banco de Dados Local & Cache**:
-  * **SQLite** (via `sqlite-net-pcl` ou `Microsoft.Data.Sqlite`) para indexação de canais, histórico de "Continuar Assistindo", favoritos e configurações.
+  * **SQLite** (via `sqlite-net-pcl` e `SQLitePCLRaw.bundle_e_sqlite3`) para indexação de canais, histórico de "Continuar Assistindo", favoritos e configurações.
   * **Cache de Mídia em Disco**: Cache de pôsteres e logotipos no AppData local para carregamento instantâneo e economia de banda.
 * **Enriquecimento de Metadados**:
   * Integração com **TMDb API (TheMovieDB)** para obter pôsteres em alta definição, backdrops panorâmicos (1080p/4K) e sinopses ricas, com fallback automático para os dados originais do provedor IPTV.
@@ -37,24 +37,24 @@
   * **Simbologia das 3 Cabeças**: Representam os 3 pilares do IPTV (📺 TV Ao Vivo na esquerda, 🎬 Filmes VOD no centro e 🎞️ Séries na direita).
   * **Emblema Central**: Claquete de cinema com o botão Play (▶), anel circular no formato da letra "C" e ondas de transmissão (*broadcasting*).
 * **Paleta de Cores Oficial**:
-  * **Fundo**: Dark Mode imersivo e profundo (`#0a0a0d` e `#121216`) com materiais Fluent Design do Windows 11 (*Mica* e *Acrylic*).
+  * **Fundo**: Dark Mode imersivo e profundo (`#0a0a0d` e `#121216`) com materiais translúcidos e acrílico do Avalonia (`TransparencyLevelHint="Mica, AcrylicBlur"` e `ExperimentalAcrylicBorder`).
   * **Acento Primário**: **Cerberus Cyber Blue** (`#00D2FF` com gradiente para `#0072FF` e glow ciano elétrico) aplicado ao logo, botões primários ("Assistir Agora", "Entrar e Sincronizar"), barras de progresso, timeline do player e bordas ativas.
   * **Bicolor Funcional**: O indicador de transmissão de TV ao vivo utiliza a tag e ponto pulsante **🔴 AO VIVO** vermelho clássico para rápida identificação semafórica pelo usuário.
 * **Tela de Login / Conexão**:
-  * Backdrop cinematográfico sci-fi em alta definição com efeito parallax reativo ao mouse.
-  * Cartão central fixo e estável em **Vidro Fosco Lapidado (*Frosted Glass / Fluent Acrylic*)** com bisel de luz superior (`inset 0 1px 1px rgba(255,255,255,0.32)`) e campos reentrantes (*sunken glass*).
+  * Backdrop cinematográfico sci-fi em alta definição com efeito visual suave.
+  * Cartão central fixo e estável em **Vidro Fosco Lapidado (*Frosted Glass / Fluent Acrylic*)** com bisel de luz superior e campos reentrantes (*sunken glass*).
 * **Componentes Principais**:
   * **Hero Banner Dinâmico**: Destaque de topo com pôster panorâmico, sinopse, classificação indicativa e botões de ação ("Assistir Agora", "Mais Informações").
   * **Carrosséis Horizontais de Conteúdo**: Linhas de filmes/séries/canais organizados por gênero ("Continuar Assistindo", "Em Alta", etc.) com efeito suave de *hover zoom* (+10% de escala e elevação com sombra ao passar o mouse).
   * **Modal de Detalhes de Conteúdo**: Painel sobreposto exibindo sinopse completa, seletor de temporadas e episódios, áudios e legendas disponíveis.
   * **Grade de TV Ao Vivo (EPG)**: Linha do tempo horizontal estilo televisão moderna, exibindo o programa atual e os próximos.
 * **Navegação Híbrida**:
-  * Suporte nativo tanto para **Mouse/Teclado** quanto para **Controle de Xbox / Teclas Direcionais (Setas)** através do sistema de foco `XYFocus` do WinUI 3, permitindo uso em TVs de sala.
+  * Suporte nativo tanto para **Mouse/Teclado** quanto para **Controle / Teclas Direcionais (Setas)** através do sistema de foco e navegação por teclado do Avalonia (`KeyboardNavigation`).
 
 ---
 
 ## 4. Recursos Avançados de Vídeo & Regras de Negócio
-* **Picture-in-Picture (PiP)**: Janela de vídeo flutuante sem bordas e *Always-on-Top* para permitir que o usuário continue assistindo enquanto navega pelo catálogo ou usa outros apps.
+* **Picture-in-Picture (PiP)**: Janela de vídeo flutuante sem bordas e *Topmost* para permitir que o usuário continue assistindo enquanto navega pelo catálogo ou usa outros apps.
 * **Multiview**: Grade dividida em 2 ou 4 canais ao vivo simultâneos com alternância instantânea da faixa de áudio ativa ao focar na tela desejada.
 * **Catch-up / Timeshift**: Suporte a reprodução de conteúdos passados diretamente a partir do guia EPG (quando suportado pelo servidor Xtream Codes).
 * **Gravação Local DVR**: Gravação do fluxo de transmissão ao vivo diretamente em disco (`.mp4`/`.ts`) via LibVLC.
@@ -70,10 +70,10 @@
   * Utilizar recursos modernos do C# 12/13 (Pattern matching, Primary Constructors onde apropriado, records para DTOs imutáveis, nullable reference types habilitados).
   * Nomenclatura: PascalCase para classes, métodos e propriedades públicas; `_camelCase` para campos privados. Interfaces sempre prefixadas com `I` (`IIptvService`, `IPlayerService`).
 * **MVVM Rigoroso**:
-  * As Views (`.xaml`) contêm apenas apresentação e bindings.
-  * Nenhuma lógica de negócio, chamadas de rede ou queries de banco no *code-behind* (`.xaml.cs`).
+  * As Views (`.axaml`) contêm apenas apresentação, estilos e bindings.
+  * Nenhuma lógica de negócio, chamadas de rede ou queries de banco no *code-behind* (`.axaml.cs`).
   * Utilizar `[ObservableProperty]` e `[RelayCommand]` do `CommunityToolkit.Mvvm`.
 * **Performance e Memória**:
-  * **Virtualização de Listas**: SEMPRE utilizar virtualização de interface (`ItemsRepeater` ou `ListView` com `VirtualizingStackPanel`) ao exibir listas de canais ou filmes. Nunca instanciar milhares de cards em memória simultaneamente.
+  * **Virtualização de Listas**: SEMPRE utilizar virtualização de interface (`ListBox` ou `ItemsControl` com painel virtualizador do Avalonia) ao exibir listas de canais ou filmes. Nunca instanciar milhares de cards em memória simultaneamente.
   * **Gerenciamento de Recursos (IDisposable)**: Instâncias de LibVLC, `MediaPlayer`, streams de rede e conexões SQLite devem ser devidamente liberadas no descarte de ViewModels/Views.
   * **Resiliência de Rede**: Streams de IPTV falham por instabilidade de servidores. Toda reprodução e chamada de API deve prever tratamento de timeout, tentativas de reconexão transparente e mensagens claras para o usuário.
